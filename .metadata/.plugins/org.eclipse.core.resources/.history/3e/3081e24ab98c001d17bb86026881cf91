@@ -1,0 +1,16 @@
+package com.demo.scope;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Pepsi {
+	
+	public Pepsi() {
+		System.out.println("this is pepsi class");
+	}
+	
+	public void drink() {
+		System.out.println("pepsi is cold");
+	}
+
+}

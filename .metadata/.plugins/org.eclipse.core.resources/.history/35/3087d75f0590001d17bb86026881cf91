@@ -1,0 +1,6 @@
+package com.ap.dto;
+
+
+public class UserDto {
+
+}

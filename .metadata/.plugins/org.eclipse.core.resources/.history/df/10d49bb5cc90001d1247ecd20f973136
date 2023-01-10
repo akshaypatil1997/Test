@@ -1,0 +1,46 @@
+package com.neosoft.exception.handling.config;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.neosoft.exception.handling.dto.UserNotFoundException;
+
+@RestControllerAdvice
+public class AppExceptionHandler{
+	
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String ,String> handleInvalidArg(MethodArgumentNotValidException ex){
+		
+		Map<String ,String> error=new HashMap<>();
+		
+		ex.getBindingResult().
+		                    getFieldErrors().
+		                               forEach(e->
+		                               		error.put(e.getField(), e.getDefaultMessage()));
+		
+		return error;
+		
+	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	public Map<String, String> userNotfound(UserNotFoundException ex){
+		
+		Map<String, String> err=new HashMap<String, String>();
+		err.put("error", ex.getMessage());
+		
+		return err;
+		
+		
+	}
+
+}

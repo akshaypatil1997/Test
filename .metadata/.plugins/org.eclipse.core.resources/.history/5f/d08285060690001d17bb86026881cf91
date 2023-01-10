@@ -1,0 +1,11 @@
+package com.ap.service;
+
+import com.ap.dto.UserDto;
+
+public interface UserService {
+	
+	// create
+	
+	public UserDto createUser(UserDto userDto);
+
+}

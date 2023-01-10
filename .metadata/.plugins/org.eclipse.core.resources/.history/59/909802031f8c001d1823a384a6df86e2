@@ -1,0 +1,29 @@
+package com.demo.model;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Person {
+	
+
+	
+	Animal animal;
+
+	@Autowired 
+	  public Person(@Qualifier("dog") Animal animal) 
+	  {  super(); 
+	     this.animal = animal; 
+	  }
+	 
+	
+	public void play() {
+		animal.play();
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,110 @@
+package com.ap.service.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ap.dto.UserDto;
+import com.ap.model.User;
+import com.ap.repository.UserRepository;
+import com.ap.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private UserRepository userRepository;
+
+	
+	@Override
+	public UserDto createUser(UserDto userDto) {
+		
+		String userid = UUID.randomUUID().toString();
+		userDto.setUserId(userid);
+		
+		User user=dtoToEntity(userDto);
+		userRepository.save(user);
+		
+		UserDto userDto1=EntityToDto(user);	
+		return userDto1;
+	}
+
+	
+
+	
+
+
+	@Override
+	public UserDto updateUser(UserDto userDto, String userId) {
+		
+		User user = userRepository.findById(userId).get();
+		
+		if(userDto.getName()!=null) {
+			user.setName(userDto.getName());
+		}else if(userDto.getEmail()!=null) {
+			user.setEmail(userDto.getEmail());
+		}else if(userDto.getPassword()!=null) {
+			user.setPassword(userDto.getPassword());
+		}else if(userDto.getGender()!=null) {
+			user.setGender(userDto.getGender());
+		}
+		
+		userRepository.save(user);
+		
+		UserDto dto = EntityToDto(user);
+		
+		return dto;
+	}
+
+	@Override
+	public void deleteUser(String userId) {
+		
+	}
+
+	@Override
+	public List<UserDto> getAllUser() {
+		return null;
+	}
+
+	@Override
+	public UserDto getUser(String UserId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDto getUserEmail(String email) {
+		return null;
+	}
+	
+	private User dtoToEntity(UserDto userDto) {
+		
+				User user=User.builder()
+				.userId(userDto.getUserId())
+				.name(userDto.getName())
+				.email(userDto.getEmail())
+				.password(userDto.getPassword())
+				.gender(userDto.getGender()).
+				 build();
+		
+		return user;
+	}
+	
+	private UserDto EntityToDto(User user) {
+
+		UserDto userDto=UserDto.builder()
+				.userId(user.getUserId())
+				.name(user.getName())
+				.email(user.getEmail())
+				.password(user.getPassword())
+				.gender(user.getGender())
+				.build();
+		
+		return userDto;
+	}
+
+	
+
+}

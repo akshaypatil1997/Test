@@ -1,0 +1,29 @@
+package com.demo.model;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Person {
+	
+	@Autowired
+	Animal animal;
+
+	public Person(Animal animal) {
+		super();
+		this.animal = animal;
+	}
+
+	public Person() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Person [animal=" + animal + "]";
+	}
+	
+	
+
+}
